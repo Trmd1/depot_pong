@@ -23,6 +23,10 @@
             var j2w=j1w;
             var j2h=j1h;
             var j2y=j1y;
+            var s=false;
+            var z=false;
+            var s2=false;
+            var z2=false;
 
             
 
@@ -77,8 +81,63 @@
                     }else if((!haut && y>=canvas.height-radius)){
                         haut=true;
                     }
+                
                 requestAnimationFrame(deplacer)
+                key();
+                move();
             };
+            function key(){
+                document.addEventListener("keydown",function (event){
+                    if(event.keyCode===83){
+                        s=true;
+                    }
+                    if(event.keyCode===90){
+                        z=true;
+                    }
+                    if(event.keyCode===38){
+                        z2=true;
+                    }
+                    if(event.keyCode===40){
+                        s2=true;
+                    }
+                });
+                document.addEventListener("keyup",function (event){
+                    if(event.keyCode===83){
+                        s=false;
+                    }
+                    if(event.keyCode===90){
+                        z=false;
+                    }
+                    if(event.keyCode===38){
+                        z2=false;
+                    }
+                    if(event.keyCode===40){
+                        s2=false;
+                    }
+                });   
+            }
+            function move(){
+                if(z){
+                    if(j1y>3){
+                        j1y-=3;
+                    }
+                }
+                if(z2){
+                    if(j2y>3){
+                        j2y-=3;
+                    }
+                }
+                if(s){
+                    if(j1y<canvas.height-(3+j1h)){
+                        j1y+=3;
+                    }
+                }
+                if(s2){
+                    if(j2y<canvas.height-(3+j2h)){
+                        j2y+=3;
+                    }
+                }
+            }
             requestAnimationFrame(deplacer);
         </script>
     </body>
