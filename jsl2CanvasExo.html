@@ -70,11 +70,11 @@
                     }
 
 
-                    if((droite && x>=canvas.width-radius)||(((x+radius)==(j2x-j2w))&&((j2y<=y)&&((j2y+j2h)>=y)))){
+                    if(((x+radius)==(j2x-j2w))&&((j2y<=y)&&((j2y+j2h)>=y))){
                         droite=false;
                         //console.log(droite);
                     }
-                    else if((!droite && x<=radius)||(((x-radius)==(j1x+j1w))&&((j1y<=y)&&((j1y+j1h)>=y)))){
+                    else if(((x-radius)==(j1x+j1w))&&((j1y<=y)&&((j1y+j1h)>=y))){
                         droite=true;
                     }
 
@@ -87,6 +87,7 @@
                 requestAnimationFrame(deplacer)
                 key();
                 move();
+                result();
             };
             function key(){
                 document.addEventListener("keydown",function (event){
@@ -138,6 +139,23 @@
                     if(j2y<canvas.height-(3+j2h)){
                         j2y+=3;
                     }
+                }
+            }
+            function result(){
+                if(droite && x>=canvas.width-radius){
+                    x=canvas.width-(3+j2w+radius);
+                    y=canvas.height/2;
+                    j1y=(canvas.height/2)-(j1h/2);
+                    j2y=j1y;
+                    droite=false;
+                    alert("Le joueur 1 a gagné");
+                }else if(!droite && x<=radius){
+                    x=3+j1w+radius;
+                    y=canvas.height/2;
+                    j1y=(canvas.height/2)-(j1h/2);
+                    j2y=j1y;
+                    droite=true;
+                    alert("Le joueur 2 a gagné");
                 }
             }
             requestAnimationFrame(deplacer);
