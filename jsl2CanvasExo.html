@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Pong</title>
+        <link rel="stylesheet" href="pong.css">
+    </head>
+    <body>
+        <canvas id="myCanvas" width="800px" height="500px"></canvas>
+        <script>
+            var canvas=document.getElementById("myCanvas");
+            var context = canvas.getContext("2d");
+            var x=40;
+            var y = 250;
+            var radius=30;
+            var droite = true;
+            var haut = true;
+            var j1w=10;
+            var j1h=90;
+            var j1y=canvas.height/2-j1h/2;
+            //var j2x=canvas.width-(j1w+3);
+            var j1x=radius;
+            var j2x=canvas.width-radius;
+            var j2w=j1w;
+            var j2h=j1h;
+            var j2y=j1y;
+
+            
+
+            function deplacer(){
+                    
+                    if(droite){
+
+                        context.clearRect(0,0, canvas.width, canvas.height);
+                        context.beginPath();
+                        context.rect(j1x,j1y,j1w,j1h);
+                        context.rect(j2x,j2y,j2w,j2h);
+                        context.arc(x, y, radius, 0, 2 * Math.PI);
+                        context.fillStyle="red";
+                        context.fill();
+                        if(haut){
+                            y-=1;
+                        }else if(!haut){
+                            y+=1;
+                        }
+                        x+=1;
+                        //console.log(x);
+
+                    
+                    }else if(!droite){
+                        context.clearRect(0,0, canvas.width, canvas.height);
+                        context.beginPath();
+                        context.rect(j1x,j1y,j1w,j1h);
+                        context.rect(j2x,j2y,j2w,j2h);
+                        context.arc(x, y, radius, 0, 2 * Math.PI);
+                        context.fillStyle="red";
+                        context.fill();
+                        if(haut){
+                            y-=1;
+                        }else if(!haut){
+                            y+=1;
+                        }
+                        x-=1;
+                        //console.log(x);
+                    }
+
+
+                    if((droite && x>=canvas.width-radius)||(((x+radius)==(j2x-j2w))&&((j2y<=y)&&((j2y+j2h)>=y)))){
+                        droite=false;
+                        //console.log(droite);
+                    }
+                    else if((!droite && x<=radius)||(((x-radius)==(j1x+j1w))&&((j1y<=y)&&((j1y+j1h)>=y)))){
+                        droite=true;
+                    }
+
+                    if((haut && y<=radius)){
+                        haut=false;
+                    }else if((!haut && y>=canvas.height-radius)){
+                        haut=true;
+                    }
+                requestAnimationFrame(deplacer)
+            };
+            requestAnimationFrame(deplacer);
+        </script>
+    </body>
+</html>
